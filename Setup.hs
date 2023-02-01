@@ -150,8 +150,6 @@ lhs2texPostBuild a bf@(BuildFlags { buildVerbosity = vf }) pd lbi =
         callLhs2tex v lbi ["--code", "lhs2TeX.sty.lit"] (lhs2texDir `joinFileName` "lhs2TeX.sty")
         callLhs2tex v lbi ["--code", "lhs2TeX.fmt.lit"] (lhs2texDir `joinFileName` "lhs2TeX.fmt")
         createDirectoryIfMissing True lhs2texDocDir
-        if rebuildDocumentation ebi then lhs2texBuildDocumentation a bf pd lbi
-                                    else copyFileVerbose v ("doc" `joinFileName` "Guide2.pdf") (lhs2texDocDir `joinFileName` "Guide2.pdf")
 
 lhs2texBuildDocumentation a (BuildFlags { buildVerbosity = vf }) pd lbi =
     do  let v = fromFlagOrDefault normal vf
@@ -218,7 +216,6 @@ lhs2texPostCopy a (CopyFlags { copyDest = cdf, copyVerbosity = vf }) pd lbi =
                        then dataPref `joinFileName` "Documentation"
                        else datadir (absoluteInstallDirs pd lbi cd) `joinFileName` ".." `joinFileName` "man" `joinFileName` "man1"
         createDirectoryIfMissing True docDir
-        installOrdinaryFile v (lhs2texDocDir `joinFileName` "Guide2.pdf") (docDir `joinFileName` "Guide2.pdf")
         when (not isWindows) $
           do createDirectoryIfMissing True manDir
              installOrdinaryFile v ("lhs2TeX.1") (manDir `joinFileName` "lhs2TeX.1")

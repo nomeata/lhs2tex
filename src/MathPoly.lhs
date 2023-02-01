@@ -345,8 +345,9 @@ As a final step, the current line is placed on the stack.
 >       Blank                   -> loop True stack ls -- ignore blank lines
 >    {-| Poly x || trace (show x) False -> undefined |-}
 >       Poly []                 -> loop True stack ls -- next line
->       Poly (((_n,_c),[],_ind):rs)
->         | first               -> loop True stack (Poly rs:ls) -- ignore leading blank columns
+>       Poly (((_n,_c),ts,_ind):rs)
+>         | first && all (not . isNotSpace . token) ts
+>                               -> loop True stack (Poly rs:ls) -- ignore leading blank columns
 >       Poly p@(((n,c),ts,_ind):rs)
 >         | first               -> -- check indentation
 >                                  let -- step 1: shrink stack

@@ -33,7 +33,6 @@ extra-source-files:     AUTHORS
                         doc/*.lhs.in
                         doc/*.fmt
                         doc/Guide2.lhs
-                        doc/Guide2.pdf
                         doc/Makefile
                         doc/lhs2TeXpre
                         Examples/*.lhs
